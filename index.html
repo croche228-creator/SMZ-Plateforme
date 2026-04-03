@@ -1,460 +1,122 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SMZ Plateform</title>
-  <link rel="stylesheet" href="style.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMZ PLATEFORME</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="bg-layer"></div>
+  <div class="bg-glow"></div>
 
-<!-- ══════════════════════════════════
-  PAGE INTRO (style Netflix)
-══════════════════════════════════ -->
-<div id="page-intro" class="page active">
-  <div class="intro-bg">
-    <div class="intro-scanlines"></div>
-    <div class="intro-vignette"></div>
-  </div>
-
-  <div id="yt-frame-container"></div>
-
-  <div class="intro-center" id="intro-center">
-    <div class="smz-logo-anim" id="smz-logo-anim">
-      <span id="ltr-s">S</span><span id="ltr-m">M</span><span id="ltr-z">Z</span>
-    </div>
-    <div class="intro-beam" id="intro-beam"></div>
-    <div class="intro-plateform" id="intro-plateform">PLATEFORM</div>
-  </div>
-
-  <button class="intro-skip" onclick="skipIntro()">Passer ›</button>
-</div>
-
-<!-- ══════════════════════════════════
-  PAGE CONNEXION
-══════════════════════════════════ -->
-<div id="page-login" class="page">
-  <div class="login-cinematic-bg">
-    <div class="login-bg-overlay"></div>
-  </div>
-
-  <nav class="login-nav">
-    <div class="login-logo"><span>SMZ</span> Plateform</div>
-    <div class="login-tabs">
-      <button id="tab-signin" class="tab active" onclick="showLoginTab('signin')">Se connecter</button>
-      <button id="tab-signup" class="tab" onclick="showLoginTab('signup')">S'inscrire</button>
-    </div>
-  </nav>
-
-  <!-- Connexion -->
-  <div class="login-box" id="box-signin">
-    <div class="login-box-logo"><span>SMZ</span> Plateform</div>
-    <p class="login-box-sub">Connectez-vous pour accéder au contenu</p>
-
-    <label class="field-label">Pseudo</label>
-    <div class="field-wrap">
-      <input type="text" id="signin-email" placeholder="VotrePseudo@FLASHBACKWL" autocomplete="off"/>
-    </div>
-    <span class="field-hint">Format : pseudo@FLASHBACKWL</span>
-
-    <label class="field-label">Mot de passe</label>
-    <div class="field-wrap pw-wrap">
-      <input type="password" id="signin-pw" placeholder="••••••••"/>
-      <button class="eye-btn" onclick="toggleEye('signin-pw',this)">👁</button>
-    </div>
-
-    <div class="remember-row">
-      <input type="checkbox" id="remember"/><label for="remember">Se souvenir de moi</label>
-    </div>
-
-    <div class="login-err" id="signin-err"></div>
-    <button class="btn-red full" onclick="doSignIn()">Se connecter</button>
-    <p class="login-switch-link">Pas encore de compte ? <a onclick="showLoginTab('signup')">S'inscrire</a></p>
-  </div>
-
-  <!-- Inscription -->
-  <div class="login-box hidden" id="box-signup">
-    <div class="login-box-logo"><span>SMZ</span> Plateform</div>
-    <p class="login-box-sub">Créer votre compte</p>
-
-    <label class="field-label">Pseudo</label>
-    <div class="field-wrap">
-      <input type="text" id="signup-pseudo" placeholder="MonPseudo"/>
-    </div>
-    <span class="field-hint">→ MonPseudo@FLASHBACKWL</span>
-
-    <label class="field-label">Mot de passe</label>
-    <div class="field-wrap pw-wrap">
-      <input type="password" id="signup-pw" placeholder="••••••••"/>
-      <button class="eye-btn" onclick="toggleEye('signup-pw',this)">👁</button>
-    </div>
-
-    <label class="field-label">Confirmer</label>
-    <div class="field-wrap pw-wrap">
-      <input type="password" id="signup-confirm" placeholder="••••••••"/>
-      <button class="eye-btn" onclick="toggleEye('signup-confirm',this)">👁</button>
-    </div>
-
-    <div class="login-err" id="signup-err"></div>
-    <button class="btn-red full" onclick="doSignUp()">Créer le compte</button>
-    <p class="login-switch-link">Déjà un compte ? <a onclick="showLoginTab('signin')">Se connecter</a></p>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════
-  PAGE PRINCIPALE (après connexion)
-══════════════════════════════════ -->
-<div id="page-main" class="page">
-
-  <!-- NAVBAR -->
-  <nav class="main-nav" id="main-nav">
-    <div class="nav-brand" onclick="showSection('home')">
-      <span class="brand-s">SMZ</span><span class="brand-p">Plateform</span>
-    </div>
-    <ul class="nav-menu" id="nav-menu">
-      <li><a class="nlink active" onclick="showSection('home')">Accueil</a></li>
-      <li><a class="nlink" onclick="showSection('films')">Films</a></li>
-      <li><a class="nlink" onclick="showSection('series')">Séries</a></li>
-      <li><a class="nlink" onclick="showSection('docs')">Documentaires</a></li>
-      <li><a class="nlink" onclick="showSection('new')">Nouveautés</a></li>
-      <li><a class="nlink" onclick="showSection('mylist')">Ma liste</a></li>
-      <li id="admin-nav-item" class="hidden"><a class="nlink admin-link" onclick="showSection('admin')">⚙ Admin</a></li>
-    </ul>
-    <div class="nav-right">
-      <button class="nav-icon-btn" onclick="toggleSearch()" title="Rechercher">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      </button>
-      <button class="nav-icon-btn notif-btn" onclick="toggleNotifs()" title="Notifications">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        <span class="notif-badge" id="notif-badge">0</span>
-      </button>
-      <!-- Profil -->
-      <div class="nav-profile" onclick="toggleProfileMenu()">
-        <div class="profile-avatar" id="nav-avatar">?</div>
-        <span class="profile-name" id="nav-username">—</span>
-        <span class="profile-online" id="nav-online-dot"></span>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+  <main id="app">
+    <section id="intro-screen" class="screen active">
+      <div class="intro-light"></div>
+      <div class="intro-center">
+        <h1 class="smz-logo" aria-label="SMZ PLATEFORME">SMZ</h1>
+        <p class="smz-subtitle">PLATEFORME</p>
+        <p class="smz-tag">Streaming immersif nouvelle g&eacute;n&eacute;ration</p>
+        <button id="start-btn" class="btn btn-primary">Commencer</button>
       </div>
-    </div>
-  </nav>
+    </section>
 
-  <!-- Barre de recherche -->
-  <div class="search-bar-wrap hidden" id="search-bar">
-    <div class="search-inner">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="search-input" placeholder="Rechercher titres, genres, acteurs…" oninput="doSearch()"/>
-      <button onclick="closeSearch()">✕</button>
-    </div>
-    <div class="search-results" id="search-results"></div>
-  </div>
-
-  <!-- Menu profil dropdown -->
-  <div class="profile-dropdown hidden" id="profile-dropdown">
-    <div class="pd-header">
-      <div class="pd-avatar-big" id="pd-avatar-big">?</div>
-      <div>
-        <div class="pd-name" id="pd-name">—</div>
-        <div class="pd-email" id="pd-email">—</div>
-        <div class="pd-badge" id="pd-badge">Membre</div>
+    <section id="login-screen" class="screen hidden">
+      <div class="card auth-card">
+        <h2>Connexion s&eacute;curis&eacute;e</h2>
+        <p class="muted">Format autoris&eacute;: PrenomNom@FLASHBACKWL</p>
+        <form id="login-form" novalidate>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="text" autocomplete="username" required />
+          <label for="password">Mot de passe</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required />
+          <button type="submit" class="btn btn-primary full">Se connecter</button>
+          <p id="login-error" class="error-message" aria-live="polite"></p>
+        </form>
       </div>
-    </div>
-    <div class="pd-sep"></div>
-    <button class="pd-item" onclick="openProfileEdit()">✏️ Modifier le profil</button>
-    <button class="pd-item" onclick="showSection('mylist')">📋 Ma liste</button>
-    <button class="pd-item" onclick="showSection('history')">🕐 Historique</button>
-    <div class="pd-sep"></div>
-    <button class="pd-item danger" onclick="doLogout()">🚪 Se déconnecter</button>
-  </div>
+    </section>
 
-  <!-- Notifications dropdown -->
-  <div class="notif-dropdown hidden" id="notif-dropdown">
-    <div class="notif-header">Notifications</div>
-    <div id="notif-list"><p class="notif-empty">Aucune notification</p></div>
-  </div>
-
-  <!-- ══ SECTION HOME ══ -->
-  <div id="section-home" class="section active">
-    <!-- Hero banner -->
-    <div class="hero-banner" id="hero-banner">
-      <div class="hero-bg" id="hero-bg"></div>
-      <div class="hero-grad-left"></div>
-      <div class="hero-grad-bottom"></div>
-      <div class="hero-content" id="hero-content">
-        <div class="hero-badge" id="hero-badge">● SÉRIE ORIGINALE</div>
-        <h1 class="hero-title" id="hero-title">TITRE</h1>
-        <div class="hero-season" id="hero-season"></div>
-        <p class="hero-desc" id="hero-desc"></p>
-        <div class="hero-btns">
-          <button class="btn-red" id="hero-watch-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Regarder</button>
-          <button class="btn-grey" id="hero-info-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Plus d'infos</button>
+    <section id="home-screen" class="screen hidden">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-smz">SMZ</span>
+          <span class="brand-sub">PLATEFORME</span>
         </div>
-      </div>
-      <div class="hero-slider-ctrl">
-        <button class="hero-arrow" id="hero-prev">‹</button>
-        <div class="hero-dots" id="hero-dots"></div>
-        <button class="hero-arrow" id="hero-next">›</button>
-      </div>
-    </div>
-
-    <!-- Rangées catalogue -->
-    <div class="catalogue" id="home-catalogue">
-      <div class="row-block">
-        <div class="row-header">
-          <span class="row-icon">📈</span>
-          <h2 class="row-title">Tendances</h2>
-          <span class="row-sub">Mise à jour quotidienne</span>
+        <div class="search-wrap">
+          <input id="search-input" type="search" placeholder="Rechercher un film..." />
         </div>
-        <div class="row-wrap"><button class="row-arr left" onclick="scrollRow('row-trending',-1)">‹</button><div class="cards-row" id="row-trending"></div><button class="row-arr right" onclick="scrollRow('row-trending',1)">›</button></div>
-      </div>
-      <div class="row-block">
-        <div class="row-header">
-          <span class="row-icon">🏆</span>
-          <h2 class="row-title">Top 10 en France</h2>
-          <span class="row-sub">Cette semaine</span>
-        </div>
-        <div class="row-wrap"><button class="row-arr left" onclick="scrollRow('row-top10',-1)">‹</button><div class="cards-row" id="row-top10"></div><button class="row-arr right" onclick="scrollRow('row-top10',1)">›</button></div>
-      </div>
-      <div class="row-block">
-        <div class="row-header"><span class="row-icon">🎬</span><h2 class="row-title">Continuer à regarder</h2></div>
-        <div class="row-wrap"><button class="row-arr left" onclick="scrollRow('row-continue',-1)">‹</button><div class="cards-row" id="row-continue"></div><button class="row-arr right" onclick="scrollRow('row-continue',1)">›</button></div>
-      </div>
-      <div class="row-block">
-        <div class="row-header"><span class="row-icon">⭐</span><h2 class="row-title">Nouveaux ajouts</h2></div>
-        <div class="row-wrap"><button class="row-arr left" onclick="scrollRow('row-new',-1)">‹</button><div class="cards-row" id="row-new"></div><button class="row-arr right" onclick="scrollRow('row-new',1)">›</button></div>
-      </div>
-      <div class="row-block">
-        <div class="row-header"><span class="row-icon">💥</span><h2 class="row-title">Action & Aventure</h2></div>
-        <div class="row-wrap"><button class="row-arr left" onclick="scrollRow('row-action',-1)">‹</button><div class="cards-row" id="row-action"></div><button class="row-arr right" onclick="scrollRow('row-action',1)">›</button></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ SECTION FILMS ══ -->
-  <div id="section-films" class="section hidden">
-    <div class="section-page-header"><h1><span>SMZ</span> Films</h1></div>
-    <div class="catalogue">
-      <div class="row-block">
-        <div class="row-header"><h2 class="row-title">Tous les films</h2></div>
-        <div class="row-wrap"><button class="row-arr left" onclick="scrollRow('row-films-all',-1)">‹</button><div class="cards-row" id="row-films-all"></div><button class="row-arr right" onclick="scrollRow('row-films-all',1)">›</button></div>
-      </div>
-      <div class="row-block">
-        <div class="row-header"><h2 class="row-title">Films d'action</h2></div>
-        <div class="row-wrap"><button class="row-arr left" onclick="scrollRow('row-films-action',-1)">‹</button><div class="cards-row" id="row-films-action"></div><button class="row-arr right" onclick="scrollRow('row-films-action',1)">›</button></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ SECTION SÉRIES ══ -->
-  <div id="section-series" class="section hidden">
-    <div class="section-page-header"><h1><span>SMZ</span> Séries</h1></div>
-    <div class="catalogue">
-      <div class="row-block">
-        <div class="row-header"><h2 class="row-title">Toutes les séries</h2></div>
-        <div class="row-wrap"><button class="row-arr left" onclick="scrollRow('row-series-all',-1)">‹</button><div class="cards-row" id="row-series-all"></div><button class="row-arr right" onclick="scrollRow('row-series-all',1)">›</button></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ SECTION DOCS ══ -->
-  <div id="section-docs" class="section hidden">
-    <div class="section-page-header"><h1><span>SMZ</span> Documentaires</h1></div>
-    <div class="catalogue">
-      <div class="row-block">
-        <div class="row-header"><h2 class="row-title">Tous les documentaires</h2></div>
-        <div class="row-wrap"><button class="row-arr left" onclick="scrollRow('row-docs-all',-1)">‹</button><div class="cards-row" id="row-docs-all"></div><button class="row-arr right" onclick="scrollRow('row-docs-all',1)">›</button></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ SECTION NOUVEAUTÉS ══ -->
-  <div id="section-new" class="section hidden">
-    <div class="section-page-header"><h1><span>SMZ</span> Nouveautés</h1></div>
-    <div class="catalogue">
-      <div class="row-block">
-        <div class="row-header"><h2 class="row-title">Récemment ajoutés</h2></div>
-        <div class="row-wrap"><button class="row-arr left" onclick="scrollRow('row-newest',-1)">‹</button><div class="cards-row" id="row-newest"></div><button class="row-arr right" onclick="scrollRow('row-newest',1)">›</button></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ SECTION MA LISTE ══ -->
-  <div id="section-mylist" class="section hidden">
-    <div class="section-page-header"><h1><span>SMZ</span> Ma liste</h1></div>
-    <div class="mylist-grid" id="mylist-grid"></div>
-  </div>
-
-  <!-- ══ SECTION HISTORIQUE ══ -->
-  <div id="section-history" class="section hidden">
-    <div class="section-page-header"><h1><span>SMZ</span> Historique</h1></div>
-    <div class="history-list" id="history-list"></div>
-  </div>
-
-  <!-- ══ SECTION ADMIN ══ -->
-  <div id="section-admin" class="section hidden">
-    <div class="admin-wrap">
-      <div class="admin-header">
-        <h1 class="admin-title"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Panneau Admin</h1>
-        <div class="admin-user-count" id="admin-user-count">0 utilisateurs</div>
-      </div>
-
-      <!-- Stats -->
-      <div class="admin-stats">
-        <div class="stat-card"><div class="stat-icon red">👥</div><div class="stat-num" id="stat-users">0</div><div class="stat-lbl">Utilisateurs</div></div>
-        <div class="stat-card"><div class="stat-icon red">🚫</div><div class="stat-num" id="stat-banned">0</div><div class="stat-lbl">Bloqués</div></div>
-        <div class="stat-card"><div class="stat-icon red">🎬</div><div class="stat-num" id="stat-views">0</div><div class="stat-lbl">Visionnages</div></div>
-        <div class="stat-card"><div class="stat-icon red">🔗</div><div class="stat-num" id="stat-logins">0</div><div class="stat-lbl">Connexions</div></div>
-      </div>
-
-      <!-- Gestion utilisateurs -->
-      <div class="admin-card">
-        <h2 class="admin-section-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Utilisateurs</h2>
-        <div class="admin-users-list" id="admin-users-list"></div>
-      </div>
-
-      <!-- Ajouter contenu -->
-      <div class="admin-card">
-        <h2 class="admin-section-title">➕ Ajouter du contenu</h2>
-        <div class="add-content-form">
-          <div class="form-row2">
-            <div class="form-group2"><label>Titre</label><input type="text" id="ac-title" placeholder="Titre du contenu"/></div>
-            <div class="form-group2"><label>Type</label>
-              <select id="ac-type">
-                <option value="film">Film</option>
-                <option value="serie">Série</option>
-                <option value="doc">Documentaire</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-row2">
-            <div class="form-group2"><label>Genre</label><input type="text" id="ac-genre" placeholder="Action, Drame…"/></div>
-            <div class="form-group2"><label>Année</label><input type="number" id="ac-year" placeholder="2024"/></div>
-          </div>
-          <div class="form-group2"><label>Description</label><textarea id="ac-desc" placeholder="Description…" rows="2"></textarea></div>
-          <button class="btn-red" onclick="addContent()">➕ Ajouter</button>
-        </div>
-      </div>
-
-      <!-- Messages envoyés aux users -->
-      <div class="admin-card">
-        <h2 class="admin-section-title">💬 Envoyer un message à un utilisateur</h2>
-        <div class="form-row2">
-          <div class="form-group2">
-            <label>Destinataire</label>
-            <select id="msg-target"></select>
-          </div>
-          <div class="form-group2">
-            <label>Message</label>
-            <input type="text" id="msg-content" placeholder="Votre message…"/>
+        <div class="profile-wrap">
+          <button id="profile-button" class="profile-button" aria-haspopup="true" aria-expanded="false">
+            <img id="profile-avatar" alt="Profil" src="" />
+            <span id="profile-name">Utilisateur</span>
+          </button>
+          <div id="profile-menu" class="profile-menu hidden">
+            <label for="avatar-upload" class="menu-link">Changer la photo</label>
+            <input id="avatar-upload" type="file" accept="image/*" />
+            <button id="open-payment" class="menu-link">Paiement</button>
+            <button id="open-admin" class="menu-link hidden">Panel admin</button>
+            <button id="logout-btn" class="menu-link danger">D&eacute;connexion</button>
           </div>
         </div>
-        <button class="btn-red" onclick="sendAdminMsg()">📨 Envoyer</button>
-        <div class="admin-msgs-list" id="admin-msgs-sent"></div>
-      </div>
+      </header>
 
-      <!-- Historique global -->
-      <div class="admin-card">
-        <h2 class="admin-section-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Historique global (<span id="hist-count">0</span>)</h2>
-        <table class="admin-table">
-          <thead><tr><th>#</th><th>Utilisateur</th><th>Contenu</th><th>Type</th><th>Date</th></tr></thead>
-          <tbody id="admin-history-table"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-</div><!-- fin page-main -->
-
-<!-- ══════════════════════════════════
-  MODAL DÉTAIL CONTENU
-══════════════════════════════════ -->
-<div class="modal-overlay hidden" id="modal-overlay" onclick="closeModalOutside(event)">
-  <div class="modal-box" id="modal-box">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="modal-banner" id="modal-banner">
-      <div class="modal-banner-grad"></div>
-      <div class="modal-banner-actions">
-        <button class="btn-red" onclick="watchContent()"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Regarder</button>
-        <button class="btn-icon-circle" id="modal-list-btn" onclick="toggleMyList()" title="Ma liste">+</button>
-        <button class="btn-icon-circle" onclick="likeContent()" title="J'aime">👍</button>
-      </div>
-    </div>
-    <div class="modal-body">
-      <div class="modal-cols">
-        <div class="modal-col-main">
-          <h2 class="modal-title" id="modal-title"></h2>
-          <div class="modal-meta" id="modal-meta"></div>
-          <p class="modal-desc-text" id="modal-desc-text"></p>
+      <section class="hero card">
+        <h2 id="hero-title">Chargement...</h2>
+        <p id="hero-description" class="muted"></p>
+        <div class="hero-actions">
+          <button class="btn btn-primary">Lecture</button>
+          <button class="btn btn-secondary">+ Ma liste</button>
         </div>
-        <div class="modal-col-side" id="modal-col-side"></div>
-      </div>
-      <div class="modal-similar">
-        <h3>Titres similaires</h3>
-        <div class="similar-row" id="similar-row"></div>
-      </div>
-    </div>
-  </div>
-</div>
+      </section>
 
-<!-- ══════════════════════════════════
-  MODAL ÉDITION PROFIL
-══════════════════════════════════ -->
-<div class="modal-overlay hidden" id="profile-modal-overlay" onclick="closeProfileOutside(event)">
-  <div class="modal-box profile-modal" id="profile-modal-box">
-    <button class="modal-close" onclick="closeProfileEdit()">✕</button>
-    <h2 class="profile-edit-title">✏️ Modifier mon profil</h2>
+      <section class="content-section">
+        <h3>Films recommand&eacute;s</h3>
+        <div id="movies-grid" class="movies-grid"></div>
+      </section>
 
-    <div class="profile-avatar-section">
-      <div class="pe-avatar" id="pe-avatar">?</div>
-      <p class="pe-avatar-hint">Choisir un avatar</p>
-      <div class="avatar-choices" id="avatar-choices"></div>
-    </div>
+      <section class="content-section">
+        <h3>Top 10 des films</h3>
+        <div id="top10-grid" class="top10-grid"></div>
+      </section>
+    </section>
+  </main>
 
-    <div class="form-group2">
-      <label>Pseudo affiché</label>
-      <input type="text" id="pe-pseudo" placeholder="Nouveau pseudo"/>
+  <aside id="payment-panel" class="side-panel hidden" aria-hidden="true">
+    <div class="panel-header">
+      <h3>Paiement</h3>
+      <button class="close-btn" data-close="payment-panel">X</button>
     </div>
-    <div class="form-group2">
-      <label>Bio</label>
-      <textarea id="pe-bio" rows="2" placeholder="Parlez de vous…"></textarea>
-    </div>
-    <div class="form-group2">
-      <label>Nouveau mot de passe (optionnel)</label>
-      <input type="password" id="pe-pw" placeholder="••••••••"/>
-    </div>
+    <form id="payment-form" class="panel-body">
+      <p class="muted">Simulation uniquement (aucun paiement r&eacute;el).</p>
+      <label for="pay-name">Nom sur la carte</label>
+      <input id="pay-name" type="text" placeholder="A remplir plus tard" />
+      <label for="pay-card">Num&eacute;ro de carte</label>
+      <input id="pay-card" type="text" placeholder="A remplir plus tard" />
+      <label for="pay-exp">Expiration</label>
+      <input id="pay-exp" type="text" placeholder="MM/AA" />
+      <label for="pay-cvc">CVC</label>
+      <input id="pay-cvc" type="password" placeholder="***" />
+      <button type="button" class="btn btn-primary full">Valider (simulation)</button>
+      <p class="panel-note">Zone logique verrouill&eacute;e pour l'utilisateur final.</p>
+    </form>
+  </aside>
 
-    <div class="pe-err" id="pe-err"></div>
-    <button class="btn-red full" onclick="saveProfile()">💾 Enregistrer</button>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════
-  MODAL LECTEUR VIDÉO (simulé)
-══════════════════════════════════ -->
-<div class="modal-overlay hidden" id="player-overlay" onclick="closePlayer()">
-  <div class="player-box" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closePlayer()">✕</button>
-    <div class="player-screen">
-      <div class="player-smz-logo">SMZ</div>
-      <div class="player-title-disp" id="player-title-disp"></div>
-      <div class="player-play-icon">▶</div>
-      <p class="player-note">Lecture simulée — intégrez votre lecteur ici</p>
+  <aside id="admin-panel" class="side-panel hidden" aria-hidden="true">
+    <div class="panel-header">
+      <h3>Panel Admin</h3>
+      <button class="close-btn" data-close="admin-panel">X</button>
     </div>
-    <div class="player-controls">
-      <div class="player-progress"><div class="player-prog-fill" id="prog-fill"></div></div>
-      <div class="player-ctrl-row">
-        <button onclick="playerTogglePlay(this)">⏸</button>
-        <button onclick="alert('Précédent')">⏮</button>
-        <button onclick="alert('Suivant')">⏭</button>
-        <span class="player-time" id="player-time">0:00 / 0:00</span>
-        <button onclick="alert('Son')">🔊</button>
-        <button onclick="alert('Sous-titres')">CC</button>
-        <button onclick="alert('Plein écran')">⛶</button>
-      </div>
+    <div class="panel-body">
+      <p class="muted">Gestion utilisateurs uniquement.</p>
+      <div id="admin-users-list" class="admin-users-list"></div>
     </div>
-  </div>
-</div>
+  </aside>
 
-<script src="script.js"></script>
+  <div id="overlay" class="overlay hidden"></div>
+
+  <script src="script.js"></script>
 </body>
 </html>
