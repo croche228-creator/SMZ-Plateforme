@@ -60,6 +60,7 @@ const elements = {
   searchInput: document.getElementById("search-input"),
   moviesGrid: document.getElementById("movies-grid"),
   top10Grid: document.getElementById("top10-grid"),
+  profileWrap: document.querySelector(".profile-wrap"),
   profileButton: document.getElementById("profile-button"),
   profileMenu: document.getElementById("profile-menu"),
   profileAvatar: document.getElementById("profile-avatar"),
@@ -84,9 +85,13 @@ function bootstrap() {
   seedStatuses();
   showScreen("intro");
   elements.profileAvatar.src = defaultAvatar;
+  elements.startBtn.disabled = true;
+  elements.startBtn.textContent = "Chargement...";
 
   setTimeout(() => {
-    elements.startBtn.classList.remove("hidden");
+    elements.startBtn.disabled = false;
+    elements.startBtn.textContent = "Commencer";
+    elements.startBtn.focus();
   }, 3000);
 
   bindEvents();
@@ -111,7 +116,8 @@ function bindEvents() {
     renderMovies();
   });
 
-  elements.profileButton.addEventListener("click", () => {
+  elements.profileButton.addEventListener("click", (event) => {
+    event.stopPropagation();
     state.profileMenuOpen = !state.profileMenuOpen;
     elements.profileMenu.classList.toggle("hidden", !state.profileMenuOpen);
     elements.profileButton.setAttribute("aria-expanded", String(state.profileMenuOpen));
@@ -126,6 +132,19 @@ function bindEvents() {
     btn.addEventListener("click", () => closePanels());
   });
   elements.overlay.addEventListener("click", closePanels);
+
+  document.addEventListener("click", (event) => {
+    if (!elements.profileWrap?.contains(event.target)) {
+      closeProfileMenu();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closePanels();
+      closeProfileMenu();
+    }
+  });
 }
 
 function showScreen(screenName) {
@@ -179,6 +198,13 @@ function renderHome() {
   const best = [...DB.movies].sort((a, b) => b.rating - a.rating)[0];
   elements.heroTitle.textContent = `${best.title} (${best.year})`;
   elements.heroDescription.textContent = `Genre: ${best.genre} · Note: ${best.rating}/10`;
+  const hero = document.querySelector(".hero-backdrop");
+  const glowA = Math.floor(40 + Math.random() * 290);
+  const glowB = Math.floor(40 + Math.random() * 290);
+  hero.style.background = `linear-gradient(to right, #000000f2 35%, #00000085 55%, #00000033),
+    linear-gradient(120deg, hsl(${glowA} 95% 62% / 0.34), transparent 65%),
+    radial-gradient(600px 280px at 65% 40%, hsl(${glowB} 90% 64% / 0.18), transparent),
+    #0a0a0a`;
   renderMovies();
   renderTop10();
 }
@@ -197,12 +223,13 @@ function renderMovies() {
   movies.forEach((movie) => {
     const card = document.createElement("article");
     card.className = "movie-card";
+    card.style.background = movieGradient(movie.id);
     card.innerHTML = `
       <h4 class="movie-title">${movie.title}</h4>
       <p class="movie-meta">${movie.genre} · ${movie.year} · ${movie.rating}/10</p>
       <div class="movie-actions">
-        <button class="tiny-btn">Lecture</button>
-        <button class="tiny-btn">+ Liste</button>
+        <button class="tiny-btn" type="button">Lecture</button>
+        <button class="tiny-btn" type="button">+ Liste</button>
       </div>
     `;
     elements.moviesGrid.appendChild(card);
@@ -216,17 +243,29 @@ function renderTop10() {
   ranking.forEach((movie, index) => {
     const card = document.createElement("article");
     card.className = "movie-card";
+    card.style.background = movieGradient(movie.id + 3);
     card.innerHTML = `
       <span class="top-rank">#${index + 1}</span>
       <h4 class="movie-title">${movie.title}</h4>
       <p class="movie-meta">${movie.genre} · ${movie.year} · ${movie.rating}/10</p>
       <div class="movie-actions">
-        <button class="tiny-btn">Lecture</button>
-        <button class="tiny-btn">Details</button>
+        <button class="tiny-btn" type="button">Lecture</button>
+        <button class="tiny-btn" type="button">Details</button>
       </div>
     `;
     elements.top10Grid.appendChild(card);
   });
+}
+
+function movieGradient(seed) {
+  const hue = (seed * 43) % 360;
+  return `linear-gradient(155deg, hsl(${hue} 62% 30%), #101010)`;
+}
+
+function closeProfileMenu() {
+  state.profileMenuOpen = false;
+  elements.profileMenu.classList.add("hidden");
+  elements.profileButton.setAttribute("aria-expanded", "false");
 }
 
 function handleAvatarUpload(event) {
@@ -258,8 +297,7 @@ function openPanel(panelType) {
     elements.adminPanel.setAttribute("aria-hidden", "false");
   }
 
-  state.profileMenuOpen = false;
-  elements.profileMenu.classList.add("hidden");
+  closeProfileMenu();
 }
 
 function closePanels() {
@@ -340,6 +378,7 @@ function logout() {
   state.movieFilter = "";
   elements.searchInput.value = "";
   closePanels();
+  closeProfileMenu();
   showScreen("login");
 }
 

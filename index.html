@@ -20,7 +20,7 @@
         <h1 class="smz-logo" aria-label="SMZ PLATEFORME">SMZ</h1>
         <p class="smz-subtitle">PLATEFORME</p>
         <p class="smz-tag">Streaming immersif nouvelle g&eacute;n&eacute;ration</p>
-        <button id="start-btn" class="btn btn-primary">Commencer</button>
+        <button id="start-btn" class="btn btn-primary intro-cta" type="button" aria-label="Commencer l'experience">Commencer</button>
       </div>
     </section>
 
@@ -49,26 +49,30 @@
           <input id="search-input" type="search" placeholder="Rechercher un film..." />
         </div>
         <div class="profile-wrap">
-          <button id="profile-button" class="profile-button" aria-haspopup="true" aria-expanded="false">
+          <button id="profile-button" class="profile-button" type="button" aria-haspopup="true" aria-expanded="false">
             <img id="profile-avatar" alt="Profil" src="" />
             <span id="profile-name">Utilisateur</span>
           </button>
           <div id="profile-menu" class="profile-menu hidden">
             <label for="avatar-upload" class="menu-link">Changer la photo</label>
             <input id="avatar-upload" type="file" accept="image/*" />
-            <button id="open-payment" class="menu-link">Paiement</button>
-            <button id="open-admin" class="menu-link hidden">Panel admin</button>
-            <button id="logout-btn" class="menu-link danger">D&eacute;connexion</button>
+            <button id="open-payment" class="menu-link" type="button">Paiement</button>
+            <button id="open-admin" class="menu-link hidden" type="button">Panel admin</button>
+            <button id="logout-btn" class="menu-link danger" type="button">D&eacute;connexion</button>
           </div>
         </div>
       </header>
 
       <section class="hero card">
+        <div class="hero-backdrop" aria-hidden="true"></div>
+        <div class="hero-content">
+        <p class="hero-kicker">Nouveau sur SMZ PLATEFORME</p>
         <h2 id="hero-title">Chargement...</h2>
         <p id="hero-description" class="muted"></p>
         <div class="hero-actions">
-          <button class="btn btn-primary">Lecture</button>
-          <button class="btn btn-secondary">+ Ma liste</button>
+          <button class="btn btn-primary" type="button">Lecture</button>
+          <button class="btn btn-secondary" type="button">+ Ma liste</button>
+        </div>
         </div>
       </section>
 
@@ -87,7 +91,7 @@
   <aside id="payment-panel" class="side-panel hidden" aria-hidden="true">
     <div class="panel-header">
       <h3>Paiement</h3>
-      <button class="close-btn" data-close="payment-panel">X</button>
+      <button class="close-btn" data-close="payment-panel" type="button" aria-label="Fermer le panneau paiement">X</button>
     </div>
     <form id="payment-form" class="panel-body">
       <p class="muted">Simulation uniquement (aucun paiement r&eacute;el).</p>
@@ -107,7 +111,7 @@
   <aside id="admin-panel" class="side-panel hidden" aria-hidden="true">
     <div class="panel-header">
       <h3>Panel Admin</h3>
-      <button class="close-btn" data-close="admin-panel">X</button>
+      <button class="close-btn" data-close="admin-panel" type="button" aria-label="Fermer le panneau admin">X</button>
     </div>
     <div class="panel-body">
       <p class="muted">Gestion utilisateurs uniquement.</p>
