@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CinéStream — Le cinéma chez vous</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-left">
+      <div class="logo">CINÉ<span>STREAM</span></div>
+      <ul class="nav-links">
+        <li><a href="#" class="active">Accueil</a></li>
+        <li><a href="#">Séries</a></li>
+        <li><a href="#">Films</a></li>
+        <li><a href="#">Nouveautés</a></li>
+        <li><a href="#">Ma liste</a></li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <div class="search-wrap" id="search-wrap">
+        <input type="text" id="search-input" placeholder="Titres, genres…" />
+        <button class="search-btn" id="search-toggle" aria-label="Rechercher">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+      </div>
+      <div class="notif-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="notif-dot"></span>
+      </div>
+      <div class="avatar">C</div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" id="hero-bg"></div>
+    <div class="hero-gradient-left"></div>
+    <div class="hero-gradient-bottom"></div>
+    <div class="hero-content">
+      <div class="hero-badge" id="hero-badge">★ Film à la une</div>
+      <h1 class="hero-title" id="hero-title">INTERSTELLAR</h1>
+      <div class="hero-meta" id="hero-meta">
+        <span class="meta-match">98% concordance</span>
+        <span>2014</span>
+        <span class="meta-tag">PG-13</span>
+        <span>2h 49min</span>
+      </div>
+      <p class="hero-desc" id="hero-desc">Un groupe d'explorateurs franchit un couloir spatio-temporel pour conquérir les distances de l'univers et sauver l'humanité.</p>
+      <div class="hero-actions">
+        <button class="btn-play" id="hero-play-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Lecture
+        </button>
+        <button class="btn-info" id="hero-info-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Plus d'infos
+        </button>
+      </div>
+    </div>
+    <div class="hero-controls">
+      <button class="hero-nav" id="hero-prev">‹</button>
+      <div class="hero-dots" id="hero-dots"></div>
+      <button class="hero-nav" id="hero-next-btn">›</button>
+    </div>
+  </section>
+
+  <!-- CATALOGUE -->
+  <main class="catalogue">
+    <section class="row" id="row-trending">
+      <h2 class="row-title"><span class="title-accent">🔥</span> Tendances cette semaine</h2>
+      <div class="row-wrap">
+        <button class="row-arrow left" data-row="row-trending" data-dir="-1">‹</button>
+        <div class="cards-container" id="cards-row-trending"></div>
+        <button class="row-arrow right" data-row="row-trending" data-dir="1">›</button>
+      </div>
+    </section>
+
+    <section class="row" id="row-action">
+      <h2 class="row-title"><span class="title-accent">💥</span> Action & Aventure</h2>
+      <div class="row-wrap">
+        <button class="row-arrow left" data-row="row-action" data-dir="-1">‹</button>
+        <div class="cards-container" id="cards-row-action"></div>
+        <button class="row-arrow right" data-row="row-action" data-dir="1">›</button>
+      </div>
+    </section>
+
+    <section class="row" id="row-scifi">
+      <h2 class="row-title"><span class="title-accent">🚀</span> Science-Fiction</h2>
+      <div class="row-wrap">
+        <button class="row-arrow left" data-row="row-scifi" data-dir="-1">‹</button>
+        <div class="cards-container" id="cards-row-scifi"></div>
+        <button class="row-arrow right" data-row="row-scifi" data-dir="1">›</button>
+      </div>
+    </section>
+
+    <section class="row" id="row-drama">
+      <h2 class="row-title"><span class="title-accent">🎭</span> Drames & Thrillers</h2>
+      <div class="row-wrap">
+        <button class="row-arrow left" data-row="row-drama" data-dir="-1">‹</button>
+        <div class="cards-container" id="cards-row-drama"></div>
+        <button class="row-arrow right" data-row="row-drama" data-dir="1">›</button>
+      </div>
+    </section>
+
+    <section class="row" id="row-classics">
+      <h2 class="row-title"><span class="title-accent">🏆</span> Grands classiques</h2>
+      <div class="row-wrap">
+        <button class="row-arrow left" data-row="row-classics" data-dir="-1">‹</button>
+        <div class="cards-container" id="cards-row-classics"></div>
+        <button class="row-arrow right" data-row="row-classics" data-dir="1">›</button>
+      </div>
+    </section>
+
+    <section class="row" id="search-section" style="display:none;">
+      <h2 class="row-title">🔍 Résultats</h2>
+      <div class="search-grid" id="search-grid"></div>
+    </section>
+  </main>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modal-close">✕</button>
+      <div class="modal-banner" id="modal-banner">
+        <div class="modal-banner-gradient"></div>
+        <div class="modal-banner-play">
+          <button class="btn-play" id="modal-play-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Lecture
+          </button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-cols">
+          <div class="modal-col-left">
+            <h2 class="modal-title" id="modal-title"></h2>
+            <div class="modal-meta-row" id="modal-meta-row"></div>
+            <p class="modal-desc" id="modal-desc"></p>
+          </div>
+          <div class="modal-col-right" id="modal-col-right"></div>
+        </div>
+        <div class="modal-similar-section" id="modal-similar-section">
+          <h3>Titres similaires</h3>
+          <div class="similar-grid" id="similar-grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">CINÉ<span>STREAM</span></div>
+    <div class="footer-cols">
+      <div><p>Questions ? Appelez le 0800 916 712</p></div>
+      <div class="footer-links">
+        <a href="#">Conditions d'utilisation</a>
+        <a href="#">Confidentialité</a>
+        <a href="#">Centre d'aide</a>
+        <a href="#">Préférences cookies</a>
+        <a href="#">Mentions légales</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+    <p class="footer-copy">© 2025 CinéStream — Site fictif à des fins démonstratives uniquement.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
